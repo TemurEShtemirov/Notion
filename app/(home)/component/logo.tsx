@@ -9,7 +9,14 @@ export default function Logo() {
         alt="Logo"
         width={50}
         height={50}
-        className="object-coverr"
+        className="object-coverr dark:hidden"
+      />
+      <Image
+        src={"/logo-dark.svg"}
+        alt="Logo"
+        width={50}
+        height={50}
+        className="object-coverr hidden dark:block"
       />
       <p className="font-semibold text-xl">Notion</p>
     </div>
