@@ -9,6 +9,7 @@ export default function Home() {
         <Clients />
       </div>
       <Pricing />
+      <Footer />
     </div>
   );
 }
