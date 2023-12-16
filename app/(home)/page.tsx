@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Clients, Heroes, Pricing } from "./component";
+import { Clients, Footer, Heroes, Pricing } from "./component";
 
 export default function Home() {
   return (
