@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
 export default function Heroes() {
@@ -19,7 +20,18 @@ export default function Heroes() {
       <div className="flex flex-col items-center justify-center max-w-5xl">
         <div className="flex items-center">
           <div className="relative h-[400px] w-[400px] hidden md:block">
-            
+            <Image
+              src={"/men.svg"}
+              alt="men"
+              fill
+              className="object-coverr dark:hidden"
+            />
+            <Image
+              src={"/men-dark.svg"}
+              alt="men-dark.svg"
+              fill
+              className="object-coverr hidden dark:block"
+            />
           </div>
         </div>
       </div>
