@@ -5,7 +5,6 @@ import { Loader } from "@/components/ui/loader";
 import { SignInButton } from "@clerk/clerk-react";
 import { useConvexAuth } from "convex/react";
 import { Check } from "lucide-react";
-import Link from "next/link";
 import React from "react";
 
 interface PricingCardProps {
@@ -42,13 +41,13 @@ export default function PricingCard({
         </div>
       )}
 
-      {!isAuthenticated && !isLoading && <Button>Get Started</Button>}
+      {isAuthenticated && !isLoading && <Button>Get Started</Button>}
 
-      {isAuthenticated && !isLoading && (
+      {!isAuthenticated && !isLoading && (
         <>
           <SignInButton mode="modal">
-            <Button asChild>
-              <Link href={"/documents"}>Log In</Link>
+            <Button>
+              Log In
             </Button>
           </SignInButton>
         </>
