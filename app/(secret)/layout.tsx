@@ -26,7 +26,6 @@ const SecretLayout = ({ children }: ChildProps) => {
     <div className="flex w-full">
       <Sidebar />
       <main className="flex-1 h-full overflow-y-auto">
-        <SearchCommand />
         {children}
       </main>
     </div>
