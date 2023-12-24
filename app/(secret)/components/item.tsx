@@ -1,7 +1,14 @@
 "use client";
 
 import React from "react";
-import { ChevronDown, MoreHorizontal, Plus, Trash } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  MoreHorizontal,
+  Plus,
+  Trash,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,14 +20,17 @@ import { Id } from "@/convex/_generated/dataModel";
 import { useUser } from "@clerk/clerk-react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ItemProps {
   id?: Id<"document">;
   label: string;
   level?: number;
+  expanded?: boolean;
+  onExpand?: () => void;
 }
 
-const Item = ({ label, id, level }: ItemProps) => {
+const Item = ({ label, id, level, expanded, onExpand }: ItemProps) => {
   const { user } = useUser();
   const createDocument = useMutation(api.document.createDocument);
 
@@ -33,8 +43,28 @@ const Item = ({ label, id, level }: ItemProps) => {
     createDocument({
       title: "Untitled",
       parentDocument: id,
+    }).then((document) => {
+      if (!expanded) {
+        onExpand?.();
+      }
     });
   };
+
+  // const handleExpand = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  //   event.stopPropagation();
+  //   onExpand?.();
+  // };
+
+  const handleExpand = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ): void => {
+    event.stopPropagation();
+    if (onExpand) {
+      onExpand();
+    }
+  };
+
+  const ChevronIcon = expanded ? ChevronDown : ChevronRight;
 
   return (
     <div
@@ -47,8 +77,9 @@ const Item = ({ label, id, level }: ItemProps) => {
         <div
           className="h-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 mr-1"
           role="button"
+          onClick={handleExpand}
         >
-          <ChevronDown />
+          <ChevronIcon />
         </div>
       )}
       <span className="truncate">{label}</span>
@@ -89,4 +120,14 @@ const Item = ({ label, id, level }: ItemProps) => {
   );
 };
 
+
 export default Item;
+
+Item.Skeleton = function ItemSkeleton({level}:{level?:number}){
+return (
+  <div style={{ paddingLeft: level ? `${level * 12 + 12}px` : "12px" }} className="flex gap-x-2 py-[3px]">
+    <Skeleton className="h-4 w-4"/>
+    <Skeleton className="h-4 w-[30%]"/>
+  </div>
+);
+}

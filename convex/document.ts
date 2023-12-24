@@ -16,7 +16,7 @@ export const createDocument = mutation({
 
     const document = await ctx.db.insert("document", {
       title: args.title,
-      parenDocument: args.parentDocument,
+      parentDocument: args.parentDocument,
       userId,
       isArchived: false,
       isPublished: false,
@@ -40,7 +40,7 @@ export const getDocuments = query({
     const documents = await ctx.db
       .query("document")
       .withIndex("by_user_parent", (q) =>
-        q.eq("userId", userId).eq("parenDocument", args.parentDocument)
+        q.eq("userId", userId).eq("parentDocument", args.parentDocument)
       )
       .filter((q) => q.eq(q.field("isArchived"), false))
       .order("desc")
